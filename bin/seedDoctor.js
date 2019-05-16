@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 const Doctor = require('../models/Doctor');
 
-const doctor = 'medical-manager-server';
-mongoose.connect(`mongodb://localhost/${doctor}`);
+const dbName = 'medical-manager-server';
+mongoose.connect(`mongodb://localhost/${dbName}`);
 
 
 const doctors = [
   {
     username: 'ABADIA ROCHA FINHOLDT',
-    password: '12345678',
+    password: '$2a$10$WrgZdAlpgR1ZWyRMTEPoU.mV6O4E4HS5fBOPi3xGXPYifdEV/UDC6',
     name: 'ABADIA ROCHA FINHOLDT',
     crm: '194528',
     specialty: 'CLÍNICO GERAL',
@@ -19,7 +19,7 @@ const doctors = [
   },
   {
     username: 'JOAQUIM DIEGO ANTONIO DA CRUZ',
-    password: '12345678',
+    password: '$2a$10$WrgZdAlpgR1ZWyRMTEPoU.mV6O4E4HS5fBOPi3xGXPYifdEV/UDC6',
     name: 'JOAQUIM DIEGO ANTONIO DA CRUZ',
     crm: '781692',
     specialty: 'ALERGISTA',
@@ -30,7 +30,7 @@ const doctors = [
   },
   {
     username: 'FERNANDA RAQUEL REGINA BARROS',
-    password: '12345678',
+    password: '$2a$10$WrgZdAlpgR1ZWyRMTEPoU.mV6O4E4HS5fBOPi3xGXPYifdEV/UDC6',
     name: 'FERNANDA RAQUEL REGINA BARROS',
     crm: '231567',
     specialty: 'CARDIOLOGISTA',

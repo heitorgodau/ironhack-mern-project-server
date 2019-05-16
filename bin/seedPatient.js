@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const PatientRecord = require('../models/PatientRecord');
 
-const patient = 'medical-manager-server';
-mongoose.connect(`mongodb://localhost/${patient}`);
+const dbName = 'medical-manager-server';
+mongoose.connect(`mongodb://localhost/${dbName}`);
 
 const patients = [
   {
