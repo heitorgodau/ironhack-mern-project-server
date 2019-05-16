@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
+const Users = require('../models/user-model');
 
 // eslint-disable-next-line import/no-unresolved
 
-const dbName = 'project-wireheart';
+const dbName = 'medical-manager-server';
 mongoose.connect(`mongodb://localhost/${dbName}`);
-
-const Users = require('../models/user-model');
 
 const users = [
   {
