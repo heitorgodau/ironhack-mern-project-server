@@ -79,22 +79,22 @@ app.use('/api', authRoutes);
 app.use('/api', require('./routes/photo-routes-upload'));
 app.use('/api', require('./routes/photo-exams'));
 
-app.use('/', index);
+app.use('/api', index);
 
 const patients = require('./routes/patients');
 
-app.use('/', patients);
+app.use('/api', patients);
 
 const doctors = require('./routes/doctors');
 
-app.use('/', doctors);
+app.use('/api', doctors);
 
 const consultations = require('./routes/consultations');
 
-app.use('/', consultations);
+app.use('/api', consultations);
 
 const schedulings = require('./routes/schedulings');
 
-app.use('/', schedulings);
+app.use('/api', schedulings);
 
 module.exports = app;
