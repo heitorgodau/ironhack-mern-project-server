@@ -97,6 +97,6 @@ const schedulings = require('./routes/schedulings');
 
 app.use('/api', schedulings);
 
-// test commit
+// test commit development
 
 module.exports = app;
