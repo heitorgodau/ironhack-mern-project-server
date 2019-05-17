@@ -8,6 +8,7 @@ const Consultation = require('../models/Consultation');
 // BUSCAR a lista completa de todas as consultas
 router.get('/consultations', (req, res, next) => {
   Consultation.find()
+    .populate('id_doctor')
     .then((allTheConsultations) => {
       res.json(allTheConsultations);
     })

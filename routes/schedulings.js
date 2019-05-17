@@ -7,8 +7,8 @@ const Scheduling = require('../models/Scheduling');
 
 // BUSCAR a lista completa dos agendamentos
 router.get('/schedulings', (req, res, next) => {
-  Scheduling.find()
-    .then((allTheSchedulings) => {
+  Scheduling.find().populate('id_patient')
+    .then((allTheSchedulings) => {    
       res.json(allTheSchedulings);
     })
     .catch((err) => {
@@ -50,6 +50,7 @@ router.put('/scheduling/:id', (req, res, next) => {
 
 // DELETAR um agendamento de consulta
 router.delete('/scheduling/:id', (req, res, next) => {
+  console.log('entrou na rota', req.params.id)
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.status(400).json({ message: 'Specified id is not valid' });
     return;
