@@ -16,5 +16,5 @@ const DoctorSchema = new Schema({
   timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
 });
 
-const Doctor = mongoose.model('Doctor', DoctorSchema);
+const Doctor = mongoose.model('Doctor-user', DoctorSchema);
 module.exports = Doctor;
