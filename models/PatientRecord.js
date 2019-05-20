@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 
 const PatientRecord = new Schema({
   name: { type: String },
-  gender: { type: String, enum: ['male', 'female', 'asexual', 'other'] },
+  gender: { type: String },
   birthdate: { type: Date },
   address: { type: String },
   maritalStatus: { type: String },
