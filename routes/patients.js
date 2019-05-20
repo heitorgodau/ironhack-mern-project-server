@@ -39,8 +39,9 @@ router.put('/patient/:id', (req, res, next) => {
     return;
   }
 
-  PatientRecord.findByIdAndUpdate(req.params.id, req.body)
+  PatientRecord.findOneAndUpdate({ _id: req.params.id }, req.body)
     .then(() => {
+      console.log(req.body);
       res.json({ message: `Project with ${req.params.id} is updated successfully.` });
     })
     .catch((err) => {
