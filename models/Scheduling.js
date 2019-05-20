@@ -2,10 +2,11 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-const appointmentSchema = new Schema({
-  reason: { type: String },
-  date: { type: Date },
-  hour: { type: String },
+const appointmentSchema = new Schema({  
+  patientName: String,
+  reason: String,
+  date: Date,
+  hour: String,
   id_patient: { type: Schema.Types.ObjectId, ref: 'Patient' },
   id_doctor: { type: Schema.Types.ObjectId, ref: 'Doctor' },
 }, {
