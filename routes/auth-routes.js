@@ -11,8 +11,9 @@ const User = require('../models/user-model');
 authRoutes.post('/signup', (req, res, next) => {
   const { username } = req.body;
   const { password } = req.body;
+  const { name } = req.body;
 
-  if (!username || !password) {
+  if (!username || !password || !name) {
     res.status(400).json({ message: 'Provide username and password' });
     return;
   }
@@ -33,6 +34,7 @@ authRoutes.post('/signup', (req, res, next) => {
 
     const aNewUser = new User({
       username,
+      name,
       password: hashPass,
     });
 
@@ -61,6 +63,7 @@ authRoutes.post('/login', (req, res, next) => {
 
     if (!theUser) {
       res.status(401).json(failureDetails);
+      console.log('user not found');
       return;
     }
     req.login(theUser, (err) => {
