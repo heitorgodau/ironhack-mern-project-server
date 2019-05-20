@@ -8,7 +8,7 @@ const Scheduling = require('../models/Scheduling');
 // BUSCAR a lista completa dos agendamentos
 router.get('/schedulings', (req, res, next) => {
   Scheduling.find().populate('id_patient')
-    .then((allTheSchedulings) => {    
+    .then((allTheSchedulings) => {
       res.json(allTheSchedulings);
     })
     .catch((err) => {
@@ -24,7 +24,7 @@ router.get('/scheduling/:id', (req, res, next) => {
   }
 
   Scheduling.findById(req.params.id)
-    .then((response) => {
+    .then((response) => {            
       res.status(200).json(response);
     })
     .catch((err) => {
@@ -41,7 +41,7 @@ router.put('/scheduling/:id', (req, res, next) => {
 
   Scheduling.findByIdAndUpdate(req.params.id, req.body)
     .then(() => {
-      res.json({ message: `Project with ${req.params.id} is updated successfully.` });
+      res.json({ message: `Scheduling with ${req.params.id} is updated successfully.` });
     })
     .catch((err) => {
       res.json(err);
@@ -50,7 +50,6 @@ router.put('/scheduling/:id', (req, res, next) => {
 
 // DELETAR um agendamento de consulta
 router.delete('/scheduling/:id', (req, res, next) => {
-  console.log('entrou na rota', req.params.id)
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.status(400).json({ message: 'Specified id is not valid' });
     return;
@@ -68,9 +67,10 @@ router.delete('/scheduling/:id', (req, res, next) => {
 // CRIAR um novo agendamento de consulta
 router.post('/scheduling/new', (req, res, next) => {
   const {
-    reason, date, hour, id_patient, id_doctor
+    patientName, reason, date, hour, id_patient, id_doctor,
   } = req.body;
   Scheduling.create({
+    patientName,
     reason,
     date,
     hour,
