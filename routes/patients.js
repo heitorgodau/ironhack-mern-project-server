@@ -51,7 +51,7 @@ router.put('/patient/:id', (req, res, next) => {
 // CRIAR um novo paciente no banco
 router.post('/patient/new', (req, res, next) => {
   const {
-    name, gender, birthdate, address, maritalStatus, affiliation, telResidential, cellphone, healthInsurance, email, bloodType, familyHistory, surgicalHistory, allergies, id_patient, id_doctor
+    name, gender, birthdate, address, maritalStatus, affiliation, telResidential, cellphone, healthInsurance, email, bloodType, familyHistory, surgicalHistory, allergies, id_doctor
   } = req.body;
   PatientRecord.create({
     name,
@@ -68,7 +68,6 @@ router.post('/patient/new', (req, res, next) => {
     familyHistory,
     surgicalHistory,
     allergies,
-    id_patient,
     id_doctor,
   })
     .then((response) => {
