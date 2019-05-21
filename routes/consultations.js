@@ -25,6 +25,8 @@ router.get('/consultation/:id', (req, res, next) => {
   }
 
   Consultation.findById(req.params.id)
+    .populate('id_doctor')
+    .populate('id_patient')
     .then((response) => {
       res.status(200).json(response);
     })
