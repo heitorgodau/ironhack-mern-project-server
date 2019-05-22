@@ -5,8 +5,8 @@ const router = express.Router();
 
 const Scheduling = require('../models/Scheduling');
 
-// BUSCAR a lista completa dos agendamentos
-router.get('/schedulings', (req, res, next) => {
+// SEARCH the complete list of schedulings
+router.get('/schedulings', (req, res) => {
   Scheduling.find().populate('id_patient')
     .then((allTheSchedulings) => {
       res.json(allTheSchedulings);
@@ -16,15 +16,15 @@ router.get('/schedulings', (req, res, next) => {
     });
 });
 
-// BUSCAR um agendamento específico
-router.get('/scheduling/:id', (req, res, next) => {
+// Search for a specific scheduling
+router.get('/scheduling/:id', (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.status(400).json({ message: 'Specified id is not valid' });
     return;
   }
 
   Scheduling.findById(req.params.id)
-    .then((response) => {            
+    .then((response) => {
       res.status(200).json(response);
     })
     .catch((err) => {
@@ -32,8 +32,8 @@ router.get('/scheduling/:id', (req, res, next) => {
     });
 });
 
-// EDITAR um agendamento específico
-router.put('/scheduling/:id', (req, res, next) => {
+// EDIT a specific scheduling
+router.put('/scheduling/:id', (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.status(400).json({ message: 'Specified id is not valid' });
     return;
@@ -48,8 +48,8 @@ router.put('/scheduling/:id', (req, res, next) => {
     });
 });
 
-// DELETAR um agendamento de consulta
-router.delete('/scheduling/:id', (req, res, next) => {
+// DELETE a scheduling
+router.delete('/scheduling/:id', (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.status(400).json({ message: 'Specified id is not valid' });
     return;
@@ -64,8 +64,8 @@ router.delete('/scheduling/:id', (req, res, next) => {
     });
 });
 
-// CRIAR um novo agendamento de consulta
-router.post('/scheduling/new', (req, res, next) => {
+// CREATE a new scheduling
+router.post('/scheduling/new', (req, res) => {
   const {
     patientName, reason, date, hour, id_patient, id_doctor,
   } = req.body;

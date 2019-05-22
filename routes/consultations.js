@@ -5,8 +5,8 @@ const router = express.Router();
 
 const Consultation = require('../models/Consultation');
 
-// BUSCAR a lista completa de todas as consultas
-router.get('/consultations', (req, res, next) => {
+// SEARCH a complete list of all consultations
+router.get('/consultations', (req, res) => {
   Consultation.find()
     .populate('id_doctor')
     .then((allTheConsultations) => {
@@ -17,8 +17,8 @@ router.get('/consultations', (req, res, next) => {
     });
 });
 
-// BUSCAR uma consulta específica
-router.get('/consultation/:id', (req, res, next) => {
+// SEARCH for a single consultation
+router.get('/consultation/:id', (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.status(400).json({ message: 'Specified id is not valid' });
     return;
@@ -35,8 +35,8 @@ router.get('/consultation/:id', (req, res, next) => {
     });
 });
 
-// EDITAR uma consulta específica
-router.put('/consultation/:id', (req, res, next) => {
+// EDIT a specific consultation
+router.put('/consultation/:id', (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.status(400).json({ message: 'Specified id is not valid' });
     return;
@@ -51,8 +51,8 @@ router.put('/consultation/:id', (req, res, next) => {
     });
 });
 
-// CRIAR uma nova consulta
-router.post('/consultation/new', (req, res, next) => {
+// CREATE a new consultation
+router.post('/consultation/new', (req, res) => {
   const {
     reason, fisico, orofaringe, otoscopia, SNC, rigidez_da_nuca, cardiovascular, RCR_2T_BNF_S_S, pele_e_faneros, ap_respiratorio, R_Adv, abdome, osteo_articular, PA, cid, nameCid, exam, symptoms, conduct, id_patient, id_doctor, imageUrl,
   } = req.body;
