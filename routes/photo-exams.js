@@ -5,7 +5,7 @@ const router = express.Router();
 const photo = require('../models/photo-model');
 
 // is require the consultation id to find the photo
-router.get('/consultation/photo', (req, res, next) => { 
+router.get('/consultation/photo', (req, res, next) => {
   photo.find()
     .then((response) => {
       res.status(200).json(response);
