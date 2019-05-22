@@ -40,13 +40,13 @@ router.put('/doctor/:id', (req, res) => {
     return;
   }
   const {
-    username, password, name, crm, specialty, email, birthdate, telResidencial, cellphone,
+    username, password, name, crm, prefix, specialty, email, birthdate, telResidencial, cellphone,
   } = req.body;
   const salt = bcrypt.genSaltSync(10);
   const hashPass = bcrypt.hashSync(password, salt);  
 
   const body = {
-    username, password: hashPass, name, crm, specialty, email, birthdate, telResidencial, cellphone,
+    username, password: hashPass, name, crm, prefix, specialty, email, birthdate, telResidencial, cellphone,
   };
 
   Doctor.findByIdAndUpdate(req.params.id, body)
