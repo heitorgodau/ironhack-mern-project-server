@@ -41,7 +41,7 @@ router.put('/consultation/:id', (req, res, next) => {
     res.status(400).json({ message: 'Specified id is not valid' });
     return;
   }
-
+  console.log(req.body);
   Consultation.findByIdAndUpdate(req.params.id, req.body)
     .then(() => {
       res.json({ message: `Project with ${req.params.id} is updated successfully.` });

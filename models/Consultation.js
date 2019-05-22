@@ -19,11 +19,10 @@ const ConsultationSchema = new Schema({
   osteo_articular: { type: String },
   PA: { type: String },
   nameCid: { type: String },
-  exam: { type: String },
   symptoms: { type: String },
   conduct: { type: String },
   date: { type: String },
-  imageUrl: { type: String },
+  imageUrl: String,
   id_patient: { type: Schema.Types.ObjectId, ref: 'Patient' },
   id_doctor: { type: Schema.Types.ObjectId, ref: 'User' },
 }, {
