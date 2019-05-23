@@ -41,7 +41,7 @@ router.put('/consultation/:id', (req, res) => {
     res.status(400).json({ message: 'Specified id is not valid' });
     return;
   }
-
+  console.log(req.body);
   Consultation.findByIdAndUpdate(req.params.id, req.body)
     .then(() => {
       res.json({ message: `Project with ${req.params.id} is updated successfully.` });
@@ -54,7 +54,7 @@ router.put('/consultation/:id', (req, res) => {
 // CREATE a new consultation
 router.post('/consultation/new', (req, res) => {
   const {
-    reason, fisico, orofaringe, otoscopia, SNC, rigidez_da_nuca, cardiovascular, RCR_2T_BNF_S_S, pele_e_faneros, ap_respiratorio, R_Adv, abdome, osteo_articular, PA, cid, nameCid, exam, symptoms, conduct, id_patient, id_doctor, imageUrl,
+    reason, fisico, orofaringe, otoscopia, SNC, rigidez_da_nuca, pupilas, glasgow, cardiovascular,pele_e_faneros, ap_respiratorio, abdome, osteo_articular, cid, nameCid, symptoms, conduct, id_patient, id_doctor, imageUrl,
   } = req.body;
   Consultation.create({
     reason,
@@ -64,16 +64,14 @@ router.post('/consultation/new', (req, res) => {
     otoscopia,
     SNC,
     rigidez_da_nuca,
+    pupilas,
+    glasgow,
     cardiovascular,
-    RCR_2T_BNF_S_S,
     pele_e_faneros,
     ap_respiratorio,
-    R_Adv,
     abdome,
     osteo_articular,
-    PA,
     cid,
-    exam,
     symptoms,
     conduct,
     imageUrl,
