@@ -10,7 +10,7 @@ const userSchema = new Schema({
   prefix: String,
   specialty: String,
   email: String,
-  birthdate: String,
+  birthdate: Date,
   telResidencial: String,
   cellphone: String,
 },
