@@ -1,14 +1,15 @@
 const mongoose = require('mongoose');
-const Doctor = require('../models/Doctor');
+const Users = require('../models/user-model');
+
+// eslint-disable-next-line import/no-unresolved
 
 const dbName = 'medical-manager-server';
 mongoose.connect(`mongodb://localhost/${dbName}`);
 
-
-const doctors = [
+const users = [
   {
     username: 'ABADIA ROCHA FINHOLDT',
-    password: '$2a$10$WrgZdAlpgR1ZWyRMTEPoU.mV6O4E4HS5fBOPi3xGXPYifdEV/UDC6',
+    password: '$2a$10$RsYkKXHyjrpOVLEpdpNIvO.tUFqrKK34choapZrvqnWLaZvJV6NGq',
     name: 'ABADIA ROCHA FINHOLDT',
     crm: '194528',
     specialty: 'CLÍNICO GERAL',
@@ -19,7 +20,7 @@ const doctors = [
   },
   {
     username: 'JOAQUIM DIEGO ANTONIO DA CRUZ',
-    password: '$2a$10$WrgZdAlpgR1ZWyRMTEPoU.mV6O4E4HS5fBOPi3xGXPYifdEV/UDC6',
+    password: '$2a$10$RsYkKXHyjrpOVLEpdpNIvO.tUFqrKK34choapZrvqnWLaZvJV6NGq',
     name: 'JOAQUIM DIEGO ANTONIO DA CRUZ',
     crm: '781692',
     specialty: 'ALERGISTA',
@@ -30,7 +31,7 @@ const doctors = [
   },
   {
     username: 'FERNANDA RAQUEL REGINA BARROS',
-    password: '$2a$10$WrgZdAlpgR1ZWyRMTEPoU.mV6O4E4HS5fBOPi3xGXPYifdEV/UDC6',
+    password: '$2a$10$RsYkKXHyjrpOVLEpdpNIvO.tUFqrKK34choapZrvqnWLaZvJV6NGq',
     name: 'FERNANDA RAQUEL REGINA BARROS',
     crm: '231567',
     specialty: 'CARDIOLOGISTA',
@@ -41,8 +42,8 @@ const doctors = [
   },
 ];
 
-Doctor.create(doctors, (err) => {
+Users.create(users, (err) => {
   if (err) { throw (err); }
-  console.log(`Created ${doctors.length} doctors`);
+  console.log(`Created ${users.length} users`);
   mongoose.connection.close();
 });

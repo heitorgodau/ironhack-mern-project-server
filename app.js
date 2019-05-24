@@ -8,14 +8,13 @@ const hbs = require('hbs');
 const mongoose = require('mongoose');
 const logger = require('morgan');
 const path = require('path');
+const cors = require('cors');
 
 // ################################# DEPENDECIAS AQUI
-/* const session = require('express-session');
-const bcrypt = require('bcrypt');
+const session = require('express-session');
 const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-const Patient = require('./models/Paciente'); */
-// ################################# passport
+
+require('./configs/passport');
 
 
 mongoose
@@ -52,29 +51,55 @@ app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
+app.use(session({
+  secret: 'some secret goes here',
+  resave: true,
+  saveUninitialized: true,
+}));
+
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 // default value for title local
 app.locals.title = 'Express - Generated with IronGenerator';
 
+app.use(cors({
+  credentials: true,
+  origin: ['http://localhost:3000'],
+}));
+
 // Routes
 const index = require('./routes/index');
 
-app.use('/', index);
+const authRoutes = require('./routes/auth-routes');
+
+app.use('/api', authRoutes);
+
+app.use('/api', require('./routes/photo-routes-upload'));
+app.use('/api', require('./routes/photo-exams'));
+
+app.use('/api', index);
 
 const patients = require('./routes/patients');
 
-app.use('/', patients);
+app.use('/api', patients);
 
 const doctors = require('./routes/doctors');
 
-app.use('/', doctors);
+app.use('/api', doctors);
 
 const consultations = require('./routes/consultations');
 
-app.use('/', consultations);
+app.use('/api', consultations);
 
 const schedulings = require('./routes/schedulings');
 
-app.use('/', schedulings);
+app.use('/api', schedulings);
+
+app.use((req, res, next) => {
+  // If no routes match, send them the React HTML.
+  res.sendFile(__dirname + "/public/index.html");
+});
 
 module.exports = app;

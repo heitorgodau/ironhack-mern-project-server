@@ -5,8 +5,8 @@ const router = express.Router();
 
 const PatientRecord = require('../models/PatientRecord');
 
-// BUSCAR a lista completa de pacientes
-router.get('/patients', (req, res, next) => {
+// SEARCH the complete list of patients
+router.get('/patients', (req, res) => {
   PatientRecord.find().populate('Pacientes')
     .then((allThePatients) => {
       res.json(allThePatients);
@@ -16,8 +16,8 @@ router.get('/patients', (req, res, next) => {
     });
 });
 
-// BUSCAR um paciente específico
-router.get('/patient/:id', (req, res, next) => {
+// SEARCH a specific patient
+router.get('/patient/:id', (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.status(400).json({ message: 'Specified id is not valid' });
     return;
@@ -32,14 +32,14 @@ router.get('/patient/:id', (req, res, next) => {
     });
 });
 
-// EDITAR um paciente específico
-router.put('/patient/:id', (req, res, next) => {
+// EDIT a specific patient
+router.put('/patient/:id', (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.status(400).json({ message: 'Specified id is not valid' });
     return;
   }
 
-  PatientRecord.findByIdAndUpdate(req.params.id, req.body)
+  PatientRecord.findOneAndUpdate({ _id: req.params.id }, req.body)
     .then(() => {
       res.json({ message: `Project with ${req.params.id} is updated successfully.` });
     })
@@ -48,10 +48,10 @@ router.put('/patient/:id', (req, res, next) => {
     });
 });
 
-// CRIAR um novo paciente no banco
-router.post('/patient/new', (req, res, next) => {
+// CREATE a new patient in the database
+router.post('/patient/new', (req, res) => {
   const {
-    name, gender, birthdate, address, maritalStatus, affiliation, telResidential, cellphone, healthInsurance, email, bloodType, familyHistory, surgicalHistory, allergies, id_patient, id_doctor
+    name, gender, birthdate, address, maritalStatus, affiliation, telResidential, cellphone, healthInsurance, email, bloodType, familyHistory, surgicalHistory, allergies, id_doctor,
   } = req.body;
   PatientRecord.create({
     name,
@@ -68,7 +68,6 @@ router.post('/patient/new', (req, res, next) => {
     familyHistory,
     surgicalHistory,
     allergies,
-    id_patient,
     id_doctor,
   })
     .then((response) => {
@@ -78,6 +77,5 @@ router.post('/patient/new', (req, res, next) => {
       res.json(err);
     });
 });
-
 
 module.exports = router;

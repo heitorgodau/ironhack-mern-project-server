@@ -3,10 +3,11 @@ const mongoose = require('mongoose');
 
 const router = express.Router();
 
-const Doctor = require('../models/Doctor');
+const bcrypt = require('bcryptjs');
+const Doctor = require('../models/user-model');
 
-// BUSCAR a lista completa de médicos
-router.get('/doctors', (req, res, next) => {
+// SEARCH the complete list of doctors
+router.get('/doctors', (req, res) => {
   Doctor.find()
     .then((allTheDoctors) => {
       res.json(allTheDoctors);
@@ -16,8 +17,8 @@ router.get('/doctors', (req, res, next) => {
     });
 });
 
-// BUSCAR um médico específico
-router.get('/doctor/:id', (req, res, next) => {
+// SEARCH a specific doctor
+router.get('/doctor/:id', (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.status(400).json({ message: 'Specified id is not valid' });
     return;
@@ -32,26 +33,103 @@ router.get('/doctor/:id', (req, res, next) => {
     });
 });
 
-// EDITAR um médico específico
-router.put('/doctor/:id', (req, res, next) => {
+// EDIT a specific doctor
+router.put('/doctor/:id', (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.status(400).json({ message: 'Specified id is not valid' });
     return;
   }
 
-  Doctor.findByIdAndUpdate(req.params.id, req.body)
-    .then(() => {
-      res.json({ message: `Project with ${req.params.id} is updated successfully.` });
-    })
-    .catch((err) => {
-      res.json(err);
+  Doctor.findOne({ _id: req.params.id })
+    .then((result) => {
+      console.log('Find One then');
+      if (result.password !== req.body.password) {
+        const {
+          username,
+          password,
+          name,
+          crm,
+          prefix,
+          specialty,
+          email,
+          birthdate,
+          telResidencial,
+          cellphone,
+        } = req.body;
+
+        const salt = bcrypt.genSaltSync(10);
+        const hashPass = bcrypt.hashSync(password, salt);
+
+        const body = {
+          username,
+          password: hashPass,
+          name,
+          crm,
+          prefix,
+          specialty,
+          email,
+          birthdate,
+          telResidencial,
+          cellphone,
+        };
+        Doctor.findByIdAndUpdate(req.params.id, body)
+          .then(() => {
+            console.log('Find and update then');
+            res.json({ message: `Doctor with ${req.params.id} is updated successfully.` });
+          })
+          .catch((err) => {
+            console.log('Find and update chatch');
+            res.json(err);
+          });
+      } else {
+        const {
+          username,
+          name,
+          crm,
+          prefix,
+          specialty,
+          email,
+          birthdate,
+          telResidencial,
+          cellphone,
+        } = req.body;
+
+        const body = {
+          username,
+          name,
+          crm,
+          prefix,
+          specialty,
+          email,
+          birthdate,
+          telResidencial,
+          cellphone,
+        };
+        Doctor.findByIdAndUpdate(req.params.id, body)
+          .then(() => {
+            console.log('ELSE Find and update then');
+            res.json({ message: `Doctor with ${req.params.id} is updated successfully.` });
+          })
+          .catch((err) => {
+            console.log('ELSE Find and update chatch');
+            res.json(err);
+          });
+      }
     });
 });
 
-// CRIAR um novo médico no banco
-router.post('/doctor/new', (req, res, next) => {
+// CREATE a new doctor in the database
+router.post('/doctor/new', (req, res) => {
   const {
-    username, password, name, crm, specialty, email, birthdate, telResidencial, cellphone,
+    username,
+    password,
+    name,
+    crm,
+    specialty,
+    email,
+    birthdate,
+    telResidencial,
+    cellphone,
   } = req.body;
   Doctor.create({
     username,
@@ -71,6 +149,5 @@ router.post('/doctor/new', (req, res, next) => {
       res.json(err);
     });
 });
-
 
 module.exports = router;

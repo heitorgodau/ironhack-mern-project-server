@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const PatientRecord = require('../models/PatientRecord');
 
-const patient = 'medical-manager-server';
-mongoose.connect(`mongodb://localhost/${patient}`);
+const dbName = 'medical-manager-server';
+mongoose.connect(`mongodb://localhost/${dbName}`);
 
 const patients = [
   {
@@ -20,7 +20,7 @@ const patients = [
     familyHistory: 'Não se aplica',
     surgicalHistory: 'Não se aplica',
     allergies: 'Poeira',
-    id_doctor: '5cdd6fd0120a696940f52be1',
+    id_doctor: '5ce29b6c2d3067157ecefe1e',
   },
   {
     name: 'Edson Gabriel Moreira',
@@ -37,7 +37,7 @@ const patients = [
     familyHistory: 'Não se aplica',
     surgicalHistory: 'Não se aplica',
     allergies: 'Não se aplica',
-    id_doctor: '5cdd6fd0120a696940f52be1',
+    id_doctor: '5ce29b6c2d3067157ecefe1e',
   },
   {
     name: 'Nair Cecília Rosa Alves',
@@ -54,7 +54,7 @@ const patients = [
     familyHistory: 'Não se aplica',
     surgicalHistory: 'Não se aplica',
     allergies: 'Não se aplica',
-    id_doctor: '5cdd6fd0120a696940f52be2',
+    id_doctor: '5ce29b6c2d3067157ecefe1e',
   },
   {
     name: 'Heitor Raimundo Ricardo Freitas',
@@ -71,7 +71,7 @@ const patients = [
     familyHistory: 'Não se aplica',
     surgicalHistory: 'Não se aplica',
     allergies: 'Não se aplica',
-    id_doctor: '5cdd6fd0120a696940f52be3',
+    id_doctor: '5ce29b6d2d3067157ecefe1f',
   },
   {
     name: 'Manuel Yuri de Paula',
@@ -88,7 +88,7 @@ const patients = [
     familyHistory: 'Não se aplica',
     surgicalHistory: 'Não se aplica',
     allergies: 'Não se aplica',
-    id_doctor: '5cdd6fd0120a696940f52be3',
+    id_doctor: '5ce29b6d2d3067157ecefe1f',
   },
 ];
 
