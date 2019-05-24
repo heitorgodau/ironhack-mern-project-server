@@ -97,6 +97,9 @@ const schedulings = require('./routes/schedulings');
 
 app.use('/api', schedulings);
 
-// test commit development
+app.use((req, res, next) => {
+  // If no routes match, send them the React HTML.
+  res.sendFile(__dirname + "/public/index.html");
+});
 
 module.exports = app;
